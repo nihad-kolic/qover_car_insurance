@@ -1,5 +1,6 @@
 import { Express, Request, Response } from 'express';
 import jwtValidator from './middleware/jwtValidationChecker';
+import { createUserHandler } from './controller/user.controller';
 
 export default function (app: Express) {
   /**
@@ -7,9 +8,19 @@ export default function (app: Express) {
    */
   app.get('/healthcheck', (req: Request, res: Response) => res.sendStatus(200));
   /**
-   * POST /api/auth -
+   * POST /login -
    */
-  app.post('/api/auth', jwtValidator, (req: Request, res: Response) => {
+  app.post('/login', (req: Request, res: Response) => {
+    //
+  });
+  /**
+   * POST /api/users -
+   */
+  app.post('/api/users', createUserHandler);
+  /**
+   * POST /cars -
+   */
+  app.post('/cars/offer', jwtValidator, (req: Request, res: Response) => {
     //
   });
 }
