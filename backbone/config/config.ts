@@ -8,6 +8,7 @@ export default {
   port: process.env.PORT || 3000,
   host: process.env.HOST || 'localhost',
   saltWorkFactor: 10,
+  carOfferMinLimit: process.env.CAR_OFFER_MIN_LIMIT || 5000,
   db: {
     uri: process.env.DB_URI || '127.0.0.1',
     port: process.env.DB_PORT || 27017,
@@ -15,7 +16,7 @@ export default {
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'qoversupersecret',
-    expiration: process.env.JWT_EXPIRATION || 3600,
+    expiration: process.env.JWT_EXPIRATION || 3600 * 30, // defaults to 30 days
     issuer: process.env.JWT_ISSUER || 'QoverCompany'
 
   },
