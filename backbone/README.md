@@ -16,7 +16,7 @@ for compiling ts in js.
 
 ## Starting server in debug mode RECOMMENDED for local work
 
-    npm run debbug
+    npm run debug
 
 ## Run tests
 
