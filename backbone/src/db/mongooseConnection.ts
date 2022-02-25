@@ -11,3 +11,7 @@ export const connectToDatabase = () => {
       setTimeout(connectToDatabase, 5000);
     });
 };
+
+export function stop () {
+  mongoose.disconnect();
+}

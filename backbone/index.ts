@@ -5,6 +5,9 @@ import { logger } from './src/logger';
 import { connectToDatabase } from './src/db/mongooseConnection';
 import routes from './src/routes';
 export const app = express();
+export function stopServer () {
+  server.close();
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -21,7 +24,7 @@ connectToDatabase();
  * );
  */
 
-app.listen(config.port as number, config.host as string, () => {
+const server = app.listen(config.port as number, config.host as string, () => {
   logger.info(`Server up and running  on PORT: ${config.host}:${config.port}`);
   routes(app);
 });

@@ -2,6 +2,14 @@
 
 Backend part of qover car insurance task. Allowing FE to use APIs for login, cars and car offers.
 
+
+## Pre-requirements 
+
+    - NodeJS
+    - NPM
+    - MongoDB
+
+
 ## Installation
 
 Use the node package manager to install all dependencies

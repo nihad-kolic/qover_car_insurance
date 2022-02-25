@@ -1,10 +1,17 @@
 import supertest from 'supertest';
-import { app } from '../index';
+import { app, stopServer } from '../index';
+import { stop } from '../src/db/mongooseConnection';
 import { setupDB } from './fixtures/db';
 
 beforeAll(async () => {
   await setupDB();
 });
+
+afterAll(async () => {
+  stop();
+  stopServer();
+});
+
 let token: string;
 const carsObjects: Map<string, any> = new Map<string, any>();
 

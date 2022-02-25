@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc && node build/index.js",
     "debug": "NODE_ENV=development npm run start",
-    "test": "jest --clearCache && env-cmd -f ./.env.test jest --watch --runInBand"
+    "test": "jest --clearCache && env-cmd -f ./.env.test jest"
   },
   "author": "Nihad Kolic",
   "license": "ISC",
