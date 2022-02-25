@@ -9,6 +9,9 @@ Backend part of qover car insurance task. Allowing FE to use APIs for login, car
     - NPM
     - MongoDB
 
+## DB migration (pre populate)
+
+    npx migrate up
 
 ## Installation
 

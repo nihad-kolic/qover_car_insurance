@@ -25,6 +25,6 @@ connectToDatabase();
  */
 
 const server = app.listen(config.port as number, config.host as string, () => {
-  logger.info(`Server up and running  on PORT: ${config.host}:${config.port}`);
+  logger.info(`Server up and running  on - ${config.host}:${config.port}`);
   routes(app);
 });
