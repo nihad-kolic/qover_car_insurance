@@ -4,7 +4,7 @@ import config from './config/config';
 import { logger } from './src/logger';
 import { connectToDatabase } from './src/db/mongooseConnection';
 import routes from './src/routes';
-const app = express();
+export const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

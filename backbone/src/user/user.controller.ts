@@ -11,9 +11,9 @@ export async function createUserHandler (req: Request, res: Response) {
   try {
     const user = await createUser(req.body.username, req.body.password);
     return res.send(user);
-  } catch (e: any) {
+  } catch (e) {
     logger.error(`userController::createUserHandler - error while creating user: ${e}`);
-    return res.status(409).send(e.message);
+    return res.status(409).send(e);
   }
 }
 
@@ -34,7 +34,7 @@ export async function loginUserHandler (req: Request, res: Response) {
 
     const userToReturn = new UserLoginOutputDto(accessToken, new UserDto(user.username, user.createdAt, user.updatedAt));
     return res.send(userToReturn);
-  } catch (e: any) {
+  } catch (e) {
     logger.error(`userController::loginUserHandler - error while login: ${e}`);
     return res.status(400).send(e);
   }
@@ -44,8 +44,8 @@ export async function getUsersHandler (req: Request, res: Response) {
   try {
     const users = await getUsers();
     return res.send(users);
-  } catch (e: any) {
+  } catch (e) {
     logger.error(`userController::getUsersHandler - error while creating user: ${e}`);
-    return res.status(409).send(e.message);
+    return res.status(409).send(e);
   }
 }

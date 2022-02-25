@@ -32,5 +32,5 @@ export default function (app: Express) {
   /**
    * GET /api/cars/offer -
    */
-  app.post('/api/cars/offer', jwtValidator, getCarOfferHandler);
+  app.get('/api/cars/offer', jwtValidator, getCarOfferHandler);
 }

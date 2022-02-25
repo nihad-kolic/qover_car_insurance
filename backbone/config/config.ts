@@ -9,6 +9,8 @@ export default {
   host: process.env.HOST || 'localhost',
   saltWorkFactor: 10,
   carOfferMinLimit: process.env.CAR_OFFER_MIN_LIMIT || 5000,
+  carAgeLimitMessage: 'Sorry! The driver is too young',
+  carTooHighRiskMessage: 'Sorry! We can not accept this particular risk',
   db: {
     uri: process.env.DB_URI || '127.0.0.1',
     port: process.env.DB_PORT || 27017,

@@ -1,4 +1,4 @@
-import { IsString, IsNumber } from 'class-validator';
+import { IsString, IsNumber, IsBoolean } from 'class-validator';
 
 export class CarCreateDto {
     @IsString()
@@ -6,6 +6,9 @@ export class CarCreateDto {
 
     @IsNumber()
     ageLimit: number;
+
+    @IsBoolean()
+    highRisk: boolean;
 
     @IsNumber()
     globalPrice: number;
@@ -16,11 +19,13 @@ export class CarCreateDto {
     constructor (
       manufacturer: string,
       ageLimit: number,
+      highRisk: boolean,
       globalPrice: number,
       universalPercentage: number
     ) {
       this.manufacturer = manufacturer;
       this.ageLimit = ageLimit;
+      this.highRisk = highRisk;
       this.globalPrice = globalPrice;
       this.universalPercentage = universalPercentage;
     }

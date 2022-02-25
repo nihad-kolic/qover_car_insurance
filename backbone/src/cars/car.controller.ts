@@ -1,11 +1,18 @@
 import { logger } from '../logger';
 import { Request, Response } from 'express';
-import { checkAgeLimitAndFetchCar, createCar, getCars } from './car.service';
-import { CarCreateDto } from './dto/input/car.create.dto';
-import { CarOfferInputDto } from './dto/input/car.offer.input.dto';
+import {
+  calculateUniversalPrice,
+  checkAgeLimit,
+  createCar,
+  getCar,
+  getCars
+} from './car.service';
+import { CarCreateDto } from './dto/car.create.dto';
+import { CarOfferInputDto } from './dto/car.offer.input.dto';
 import { plainToInstance } from 'class-transformer';
 import { validateOrReject } from 'class-validator';
 import config from './../../config/config';
+import { CarDocument } from './car.model';
 
 export async function createCarHandler (req: Request, res: Response) {
   try {
@@ -13,9 +20,9 @@ export async function createCarHandler (req: Request, res: Response) {
     const carDto: CarCreateDto = plainToInstance(CarCreateDto, req.body as object);
     await validateOrReject(carDto);
 
-    const car = await createCar(carDto.manufacturer, carDto.ageLimit, carDto.globalPrice, carDto.universalPercentage);
+    const car: CarDocument = await createCar(carDto.manufacturer, carDto.ageLimit, carDto.highRisk, carDto.globalPrice, carDto.universalPercentage);
     return res.send(car);
-  } catch (e: any) {
+  } catch (e) {
     logger.error(`carController::createCarHandler - error while creating car: ${e}`);
     return res.status(400).send(e);
   }
@@ -23,9 +30,10 @@ export async function createCarHandler (req: Request, res: Response) {
 
 export async function getCarsHandler (req: Request, res: Response) {
   try {
-    const cars = await getCars();
+    // TODO add pagination
+    const cars: CarDocument[] = await getCars();
     return res.send(cars);
-  } catch (e: any) {
+  } catch (e) {
     logger.error(`carController::createCarHandler - error while creating car: ${e}`);
     return res.status(400).send(e);
   }
@@ -34,27 +42,31 @@ export async function getCarsHandler (req: Request, res: Response) {
 export async function getCarOfferHandler (req: Request, res: Response) {
   try {
     // validate input parameters
-    const carOfferDto: CarOfferInputDto = plainToInstance(CarOfferInputDto, req.body as object);
-    await validateOrReject(carOfferDto);
+    const carOfferInputDto: CarOfferInputDto = plainToInstance(CarOfferInputDto, req.body as object);
+    await validateOrReject(carOfferInputDto, { forbidUnknownValues: true, whitelist: true, forbidNonWhitelisted: true });
 
     // check is the car price bellow car offer limit
-    if (carOfferDto.price < config.carOfferMinLimit) {
+    if (carOfferInputDto.price < config.carOfferMinLimit) {
       return res.status(400).send({ message: 'Sorry! The price of the car is too low' });
     }
-    // checkAgeLimitAndFetchCarDetails
-    const car = await checkAgeLimitAndFetchCar(carOfferDto.carId, carOfferDto.age);
+    // fetch car details
+    const car: CarDocument | null = await getCar(carOfferInputDto.carId);
     if (!car) {
-      return res.status(400).send({ message: 'Sorry! The driver is too young' });
+      return res.status(400).send({ message: 'Sorry! Requested car does not exist' });
     }
-    // computePrice(car)
+
+    // check age limit
+    const ageLimitation = await checkAgeLimit(carOfferInputDto.age, car.ageLimit);
+    if (!ageLimitation) {
+      const carAgeLimitMessage = car.highRisk ? config.carTooHighRiskMessage : config.carAgeLimitMessage;
+      return res.status(400).send({ message: carAgeLimitMessage });
+    }
+    // calculate universal price
+    const universalPrice: number = calculateUniversalPrice(car.globalPrice, car.universalPercentage, carOfferInputDto.price);
 
     // return offer
-
-    // const car = await createCar(carDto.manufacturer, carDto.ageLimit, carDto.globalPrice, carDto.universalPercentage);
-    // return res.send(car);
-    // const userToReturn = new UserLoginOutputDto(accessToken, new UserDto(user.username, user.createdAt, user.updatedAt));
-    // return res.send(userToReturn);
-  } catch (e: any) {
+    return res.send({ globalPrice: car.globalPrice, universalPrice: universalPrice });
+  } catch (e) {
     logger.error(`carController::getCarOfferHandler - error while creating car: ${e}`);
     return res.status(400).send(e);
   }
