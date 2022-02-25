@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "2a93e7e8-2365-4aaa-9cfb-e38ea2998b94",
+		"name": "Qover Car Insurance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:3000/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "Qover",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "Ninja",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				},
+				"description": "Login Qover/Ninja"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:3000/api/cars",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjE2NWRmZWRmOWQyMjQyZWVmYjQ4MTgiLCJ1c2VybmFtZSI6IlFvdmVyIiwicGFzc3dvcmQiOiIkMmEkMTAkZ2pIVncxUlBiWUR5Lm5tTElTTUxodXdFcFphUG9BRUVvQ1BnMzMyNlFENmdURWE4NThyTnkiLCJjcmVhdGVkQXQiOiIyMDIyLTAyLTIzVDE2OjE3OjAyLjk4NloiLCJ1cGRhdGVkQXQiOiIyMDIyLTAyLTIzVDE2OjE3OjAyLjk4NloiLCJfX3YiOjAsImlhdCI6MTY0NTcwNjY3MCwiZXhwIjoxNjQ1ODE0NjcwLCJpc3MiOiJRb3ZlckNvbXBhbnkifQ.OKGeQzbjUsb2agq53vSjCHU_WTT1n_9En649iEconYw",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/cars",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cars"
+					]
+				},
+				"description": "Get all cars from DB"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:3000/api/cars/offer",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjE2NWRmZWRmOWQyMjQyZWVmYjQ4MTgiLCJ1c2VybmFtZSI6IlFvdmVyIiwicGFzc3dvcmQiOiIkMmEkMTAkZ2pIVncxUlBiWUR5Lm5tTElTTUxodXdFcFphUG9BRUVvQ1BnMzMyNlFENmdURWE4NThyTnkiLCJjcmVhdGVkQXQiOiIyMDIyLTAyLTIzVDE2OjE3OjAyLjk4NloiLCJ1cGRhdGVkQXQiOiIyMDIyLTAyLTIzVDE2OjE3OjAyLjk4NloiLCJfX3YiOjAsImlhdCI6MTY0NTcwNjY3MCwiZXhwIjoxNjQ1ODE0NjcwLCJpc3MiOiJRb3ZlckNvbXBhbnkifQ.OKGeQzbjUsb2agq53vSjCHU_WTT1n_9En649iEconYw",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"age\":25,\n    \"price\":5000,\n    \"carId\":\"6218a90a735dc72620967ca4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/cars/offer",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cars",
+						"offer"
+					]
+				},
+				"description": "Get offer for specific car"
+			},
+			"response": []
+		}
+	]
+}
