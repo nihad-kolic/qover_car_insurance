@@ -43,53 +43,33 @@ test('Get cars from DB.', async () => {
 
 test('Should compute valid offer for Audi.', async () => {
   const response = await supertest(app)
-    .get('/api/cars/offer')
-    .set('Authorization', `Bearer ${token}`)
-    .send({
-      age: 18,
-      carId: carsObjects.get('AUDI')._id,
-      price: 7000
-    });
+    .get(`/api/cars/${carsObjects.get('AUDI')._id}/offer?age=18&price=7000`)
+    .set('Authorization', `Bearer ${token}`);
   expect(response.body.globalPrice).toBe(250);
   expect(response.body.universalPrice).toBe(460);
 });
 
 test('Should not compute offer for Audi due to age restriction', async () => {
   const response = await supertest(app)
-    .get('/api/cars/offer')
+    .get(`/api/cars/${carsObjects.get('AUDI')._id}/offer?age=15&price=7000`)
     .set('Authorization', `Bearer ${token}`)
-    .send({
-      age: 15,
-      carId: carsObjects.get('AUDI')._id,
-      price: 7000
-    })
     .expect(400);
   expect(response.body.message).toBe('Sorry! The driver is too young');
 });
 
 test('Should not compute offer for Audi due to car value restriction', async () => {
   const response = await supertest(app)
-    .get('/api/cars/offer')
+    .get(`/api/cars/${carsObjects.get('AUDI')._id}/offer?age=21&price=4000`)
     .set('Authorization', `Bearer ${token}`)
-    .send({
-      age: 21,
-      carId: carsObjects.get('AUDI')._id,
-      price: 4000
-    })
     .expect(400);
 
-  expect(response.body.message).toBe('Sorry! The car of the car is too low');
+  expect(response.body.message).toBe('Sorry! The price of the car is too low');
 });
 
 test('Should not compute offer for Porsche if the client is younger than 25', async () => {
   const response = await supertest(app)
-    .get('/api/cars/offer')
+    .get(`/api/cars/${carsObjects.get('PORSCHE')._id}/offer?age=21&price=10000`)
     .set('Authorization', `Bearer ${token}`)
-    .send({
-      age: 21,
-      carId: carsObjects.get('PORSCHE')._id,
-      price: 10000
-    })
     .expect(400);
 
   expect(response.body.message).toBe('Sorry! We can not accept this particular risk');
@@ -97,13 +77,8 @@ test('Should not compute offer for Porsche if the client is younger than 25', as
 
 test('Should compute offer for Porsche when 25 years old', async () => {
   const response = await supertest(app)
-    .get('/api/cars/offer')
+    .get(`/api/cars/${carsObjects.get('PORSCHE')._id}/offer?age=25&price=10000`)
     .set('Authorization', `Bearer ${token}`)
-    .send({
-      age: 25,
-      carId: carsObjects.get('PORSCHE')._id,
-      price: 10000
-    })
     .expect(200);
 
   expect(response.body.globalPrice).toBe(500);
@@ -112,13 +87,8 @@ test('Should compute offer for Porsche when 25 years old', async () => {
 
 test('Should compute offer for Porsche when older than 25', async () => {
   const response = await supertest(app)
-    .get('/api/cars/offer')
+    .get(`/api/cars/${carsObjects.get('PORSCHE')._id}/offer?age=26&price=10000`)
     .set('Authorization', `Bearer ${token}`)
-    .send({
-      age: 26,
-      carId: carsObjects.get('PORSCHE')._id,
-      price: 10000
-    })
     .expect(200);
 
   expect(response.body.globalPrice).toBe(500);
