@@ -9,15 +9,15 @@ Backend part of qover car insurance task. Allowing FE to use APIs for login, car
     - NPM
     - MongoDB
 
-## DB migration (pre populate)
-
-    npx migrate up
-
 ## Installation
 
 Use the node package manager to install all dependencies
 
     npm install
+
+## DB migration (pre populate)
+
+    npx migrate up
 
 ## Starting server
 Use predefined start script from package.json for starting server. Script have before launch options

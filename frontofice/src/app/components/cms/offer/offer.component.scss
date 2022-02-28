@@ -1,0 +1,53 @@
+
+.gridwrapper {
+  //margin-top: 90px;
+  //margin-left: 240px;
+  background-image: url("/assets/offer-background.svg");
+  background-repeat: no-repeat;
+  background-size:  100%;
+  margin-bottom: 0px;
+
+  width: calc(100%);
+  max-width: 100%;
+
+  min-height: calc(80vh);
+
+  padding: 35px 35px 100px;
+}
+
+.contentrow {
+  margin-bottom: 0px;
+
+  width: calc(100%);
+  max-width: 100%;
+
+  min-height: calc(70vh);
+
+  padding: 35px 35px 100px;
+}
+
+
+.universal-style {
+}
+
+.global-style-background {
+  background-color: #31cfda;
+}
+
+.global-style-background-opacity {
+  background-color: #33c3c8;
+}
+
+.show-me-the-full-com {
+  width: 219px;
+  height: 16px;
+  margin: 0 11px 0 0;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #31cfda;
+}

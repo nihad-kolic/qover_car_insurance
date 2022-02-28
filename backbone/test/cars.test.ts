@@ -78,7 +78,7 @@ test('Should not compute offer for Audi due to car value restriction', async () 
     })
     .expect(400);
 
-  expect(response.body.message).toBe('Sorry! The price of the car is too low');
+  expect(response.body.message).toBe('Sorry! The car of the car is too low');
 });
 
 test('Should not compute offer for Porsche if the client is younger than 25', async () => {

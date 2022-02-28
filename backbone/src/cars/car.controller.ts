@@ -42,10 +42,10 @@ export async function getCarsHandler (req: Request, res: Response) {
 export async function getCarOfferHandler (req: Request, res: Response) {
   try {
     // validate input parameters
-    const carOfferInputDto: CarOfferInputDto = plainToInstance(CarOfferInputDto, req.body as object);
+    const carOfferInputDto: CarOfferInputDto = plainToInstance(CarOfferInputDto, {carId: req.params.carId, age: Number(req.query.age), price: Number(req.query.price)});
     await validateOrReject(carOfferInputDto, { forbidUnknownValues: true, whitelist: true, forbidNonWhitelisted: true });
 
-    // check is the car price bellow car offer limit
+    // check is the car car bellow car offer limit
     if (carOfferInputDto.price < config.carOfferMinLimit) {
       return res.status(400).send({ message: 'Sorry! The price of the car is too low' });
     }
@@ -61,7 +61,7 @@ export async function getCarOfferHandler (req: Request, res: Response) {
       const carAgeLimitMessage = car.highRisk ? config.carTooHighRiskMessage : config.carAgeLimitMessage;
       return res.status(400).send({ message: carAgeLimitMessage });
     }
-    // calculate universal price
+    // calculate universal car
     const universalPrice: number = calculateUniversalPrice(car.globalPrice, car.universalPercentage, carOfferInputDto.price);
 
     // return offer
