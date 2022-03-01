@@ -42,8 +42,16 @@ export async function getCarsHandler (req: Request, res: Response) {
 export async function getCarOfferHandler (req: Request, res: Response) {
   try {
     // validate input parameters
-    const carOfferInputDto: CarOfferInputDto = plainToInstance(CarOfferInputDto, {carId: req.params.carId, age: Number(req.query.age), price: Number(req.query.price)});
-    await validateOrReject(carOfferInputDto, { forbidUnknownValues: true, whitelist: true, forbidNonWhitelisted: true });
+    const carOfferInputDto: CarOfferInputDto = plainToInstance(CarOfferInputDto, {
+      carId: req.params.carId,
+      age: Number(req.query.age),
+      price: Number(req.query.price)
+    });
+    await validateOrReject(carOfferInputDto, {
+      forbidUnknownValues: true,
+      whitelist: true,
+      forbidNonWhitelisted: true
+    });
 
     // check is the car car bellow car offer limit
     if (carOfferInputDto.price < config.carOfferMinLimit) {

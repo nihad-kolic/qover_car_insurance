@@ -14,7 +14,9 @@ export const connectToDatabase = () => {
 
   mongoose.connection.on('disconnected', function () {
     logger.error('MongoDB connection closed');
-    setTimeout(connectToDatabase, 5000);
+    if (process.env.NODE_ENV !== 'test') {
+      setTimeout(connectToDatabase, 5000);
+    }
   });
 };
 
