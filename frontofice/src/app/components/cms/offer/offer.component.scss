@@ -26,10 +26,6 @@
   padding: 35px 35px 100px;
 }
 
-
-.universal-style {
-}
-
 .global-style-background {
   background-color: #31cfda;
 }
@@ -50,4 +46,39 @@
   line-height: normal;
   letter-spacing: normal;
   color: #31cfda;
+}
+
+.checkboxtext
+{
+  /* Checkbox text */
+  height: 95%;
+  width: 40%;
+  min-width: 55px;
+  max-width: 55px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.padding-offer-button {
+  padding: 25px 0px 25px 0px;
+}
+
+.image-valid {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px 0 0;
+  object-fit: contain;
+}
+
+
+.image-valid-universe {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px 0 0;
+  object-fit: contain;
+  fill: red !important;
+  color: red !important
+}
+
+.universe-card-body {
+  background-color: #F7F9F8;
 }

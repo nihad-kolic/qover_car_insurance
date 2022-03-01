@@ -1,27 +1,61 @@
-<div class="container vh-100 background-image-car">
-  <div class="row justify-content-center h-100">
-    <div class="card my-auto shadow w-50">
-      <div class="card-body px-5">
-        <form [formGroup]="carPriceForm" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <input type="number" id="age" placeholder="Age of the driver" class="form-control" formControlName="age"
-                   name="age"/>
+
+
+<div class=" vh-100 w-100 background-image-car">
+   <div class="row justify-content-center h-100">
+   <div class="card my-auto shadow w-50 card-content">
+     <div class="card-body px-5">
+       <form [formGroup]="carPriceForm" (ngSubmit)="onSubmit()">
+    <div class="row car-row">
+      <div class="col">
+        <p>Age of the driver</p>
+      </div>
+      <div class="col d-flex justify-content-left">
+        <div class="form-group w-50">
+          <input type="number" id="age" class="form-control" formControlName="age"
+                 name="age" required minlength="2"/>
+          <div *ngIf="ageValid?.invalid && ageValid?.touched">
+          <span class="error-car" *ngIf="ageValid?.errors?.ageMin">Sorry! The driver is too young.</span>
           </div>
-          <div class="form-group" >
-          <select class="form-control" (change)="update($event)">
-            <option value="default">{{selected}}</option>
-            <option *ngFor="let car of cars" [value]="car._id">
-              {{car.manufacturer}}
-            </option>
-          </select>
-          </div>
-          <div class="form-group">
-            <input type="number" id="price" placeholder="Purchase Price" class="form-control"
-                   formControlName="price" name="price" />
-          </div>
-          <input type="submit" class="btn btn-primary w-100" value="Get a price" name="">
-        </form>
+        </div>
       </div>
     </div>
+    <div class="row car-row">
+      <div class="col">
+        <p>Car</p>
+      </div>
+      <div class="col d-flex justify-content-center">
+        <select class="form-control select-button" (change)="update($event)">
+          <option ngValue="null"></option>
+          <option *ngFor="let car of cars" [value]="car._id">
+            {{car.manufacturer}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row car-row">
+      <div class="col">
+        <p>Purchase Price</p>
+      </div>
+      <div class="col d-flex justify-content-left">
+        <div class="form-group w-50">
+          <input type="number" id="price" class="form-control"
+                 formControlName="price" name="price" />
+          <div *ngIf="priceValid?.invalid && priceValid?.touched">
+            <span class="error-car" *ngIf="priceValid?.errors?.priceMin">Sorry! The price of the car is too low.</span>
+          </div>
+        </div>
+        <span class="align-euro">&#8364;</span>
+      </div>
+    </div>
+         <div class="row car-row">
+           <div class="col"></div>
+           <div class="col">
+         <input type="submit" class="btn btn-info text-white w-100" value="Get a price">
+           </div>
+         </div>
+       </form>
+     </div>
+   </div>
+   </div>
   </div>
-</div>
+

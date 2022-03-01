@@ -1,5 +1,22 @@
 .login-background {
   background-image: linear-gradient(122deg, #317bda -6%, #33c3c8);
-  background-repeat: no-repeat;
-  background-size:  100%;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  overflow: hidden;
+  color: #5b7289
+}
+
+.card-body-login {
+  padding: 50px 50px 50px 50px;
+}
+
+.card-body-login-elements {
+  padding: 35px;
+}
+
+.button-ask-access {
+  border-color: #F7F9F8;
+}
+.link-class {
+  margin-left: 5px;
 }
