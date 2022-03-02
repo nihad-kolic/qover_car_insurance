@@ -2,8 +2,11 @@
 
 Backend part of qover car insurance task. Allowing FE to use APIs for login, cars and car offers.
 
+## Running backend with Docker (with DB)
 
-## Pre-requirements 
+    docker-compose up -d
+
+## Pre-requirements
 
     - NodeJS
     - NPM
@@ -25,7 +28,7 @@ for compiling ts in js.
 
     npm start
 
-## Starting server in debug mode RECOMMENDED for local work
+## Starting server in debug mode
 
     npm run debug
 

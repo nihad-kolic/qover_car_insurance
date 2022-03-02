@@ -16,17 +16,8 @@ app.use(helmet());
 app.use(cors({ origin: config.frontOfficeAllowCors }));
 
 connectToDatabase();
-/**
- * middleware that logs out the request url
- * app.use(
- *   (req: express.Request, res: express.Response, next: express.NextFunction) => {
- *     logger.info(req.originalUrl);
- *     next();
- *   }
- * );
- */
 
-const server = app.listen(config.port as number, config.host as string, () => {
+const server = app.listen(config.port as number, () => {
   logger.info(`Server up and running  on - ${config.host}:${config.port}`);
   routes(app);
 });

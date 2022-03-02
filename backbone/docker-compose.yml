@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27018:27017"
+    restart: always
+  webapp:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DB_URI=mongo
+      - DB_PORT=27017
+      - DB_NAME=car_insurance_db
+      - JWT_SECRET=8BB2D34D86572C38D36868E7A614FCF072535D7804E250EFC8B8C951AB36E1EC
+      - LOG_LEVEL=debug
+    restart: always
+    depends_on: mongo

@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 module.exports.up = function (next) {
   console.log('Migration started...');
   mongoose
-    .connect('mongodb://127.0.0.1:27017/car_insurance_db')
+    .connect('mongodb://' + process.env.DB_URI + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME)
     .then(() => {
       console.log('Try user insert.');
       const salt = bcrypt.genSaltSync(10);
