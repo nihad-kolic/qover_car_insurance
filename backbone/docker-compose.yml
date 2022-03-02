@@ -18,4 +18,4 @@ services:
       - JWT_SECRET=8BB2D34D86572C38D36868E7A614FCF072535D7804E250EFC8B8C951AB36E1EC
       - LOG_LEVEL=debug
     restart: always
-    depends_on: mongo
+    depends_on: [ mongo ]
