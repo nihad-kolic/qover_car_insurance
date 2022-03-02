@@ -73,7 +73,7 @@ export async function getCarOfferHandler (req: Request, res: Response) {
     const universalPrice: number = calculateUniversalPrice(car.globalPrice, car.universalPercentage, carOfferInputDto.price);
 
     // return offer
-    return res.send({ globalPrice: car.globalPrice, universalPrice: universalPrice });
+    return res.send({ globalPrice: car.globalPrice.toFixed(2), universalPrice: universalPrice.toFixed(2) });
   } catch (e) {
     logger.error(`carController::getCarOfferHandler - error while creating car: ${e}`);
     return res.status(400).send(e);
