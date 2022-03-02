@@ -5,7 +5,7 @@ const transportsArray = [];
 transportsArray.push(new transports.Console({ level: config.loggerConfiguration.consoleLogLevel }));
 
 if (config.loggerConfiguration.logToFile) {
-  transportsArray.push(new transports.File({ filename: 'logs/' + config.loggerConfiguration.filename, level: config.loggerConfiguration.fileLogLevel }));
+  transportsArray.push(new transports.File({ filename: 'backbone/logs/' + config.loggerConfiguration.filename, level: config.loggerConfiguration.fileLogLevel }));
 }
 
 export const logger = createLogger({
