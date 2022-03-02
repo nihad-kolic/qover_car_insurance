@@ -7,6 +7,27 @@
 	"item": [
 		{
 			"name": "http://127.0.0.1:3000/login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var res = JSON.parse(responseBody);",
+							"pm.globals.set(\"postmanToken\", res.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -55,14 +76,18 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{postmanToken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjE2NWRmZWRmOWQyMjQyZWVmYjQ4MTgiLCJ1c2VybmFtZSI6IlFvdmVyIiwicGFzc3dvcmQiOiIkMmEkMTAkZ2pIVncxUlBiWUR5Lm5tTElTTUxodXdFcFphUG9BRUVvQ1BnMzMyNlFENmdURWE4NThyTnkiLCJjcmVhdGVkQXQiOiIyMDIyLTAyLTIzVDE2OjE3OjAyLjk4NloiLCJ1cGRhdGVkQXQiOiIyMDIyLTAyLTIzVDE2OjE3OjAyLjk4NloiLCJfX3YiOjAsImlhdCI6MTY0NTcwNjY3MCwiZXhwIjoxNjQ1ODE0NjcwLCJpc3MiOiJRb3ZlckNvbXBhbnkifQ.OKGeQzbjUsb2agq53vSjCHU_WTT1n_9En649iEconYw",
-						"type": "default"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -92,17 +117,21 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{postmanToken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjE2NWRmZWRmOWQyMjQyZWVmYjQ4MTgiLCJ1c2VybmFtZSI6IlFvdmVyIiwicGFzc3dvcmQiOiIkMmEkMTAkZ2pIVncxUlBiWUR5Lm5tTElTTUxodXdFcFphUG9BRUVvQ1BnMzMyNlFENmdURWE4NThyTnkiLCJjcmVhdGVkQXQiOiIyMDIyLTAyLTIzVDE2OjE3OjAyLjk4NloiLCJ1cGRhdGVkQXQiOiIyMDIyLTAyLTIzVDE2OjE3OjAyLjk4NloiLCJfX3YiOjAsImlhdCI6MTY0NTcwNjY3MCwiZXhwIjoxNjQ1ODE0NjcwLCJpc3MiOiJRb3ZlckNvbXBhbnkifQ.OKGeQzbjUsb2agq53vSjCHU_WTT1n_9En649iEconYw",
-						"type": "default"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"age\":25,\n    \"price\":5000,\n    \"carId\":\"6218a90a735dc72620967ca4\"\n}",
+					"raw": "{\n    \"age\":25,\n    \"price\":5000,\n    \"carId\":\"6218ff04b1b4c7e806d1afd3\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -110,7 +139,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:3000/api/cars/offer",
+					"raw": "http://127.0.0.1:3000/api/cars/6218ff04b1b4c7e806d1afd3/offer?age=25&price=5400",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -122,7 +151,18 @@
 					"path": [
 						"api",
 						"cars",
+						"6218ff04b1b4c7e806d1afd3",
 						"offer"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "25"
+						},
+						{
+							"key": "price",
+							"value": "5400"
+						}
 					]
 				},
 				"description": "Get offer for specific car"
