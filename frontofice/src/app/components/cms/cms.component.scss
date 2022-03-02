@@ -1,12 +1,7 @@
 
-.content {
-  //margin-top: 90px;
-  //margin-left: 240px;
-  margin-bottom: 0px;
-  overflow: hidden;
 
-
-
+.disable-scroll {
+  overflow: auto !important;
+  overflow-y: auto !important;
   min-height: calc(80vh);
-
 }

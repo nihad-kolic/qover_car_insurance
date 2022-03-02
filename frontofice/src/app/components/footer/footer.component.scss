@@ -2,7 +2,11 @@
 .copyright {
   padding: 28px 0;
   margin-top: 0px;
-  background-color: #0976B4; }
+  background-color: #0976B4;
+  overflow: hidden;
+  min-height: 50px;
+  max-height: 75px;
+}
 .copyright span,
 .copyright a {
   color: #fff;

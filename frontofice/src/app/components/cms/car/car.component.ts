@@ -22,17 +22,16 @@ export class CarComponent implements OnInit {
     private offer: OfferService,
     private router: Router
   ) {}
-  selected = '---Car---';
   selectedCarId;
   update(e) {
-    console.log(e.target.value);
     this.selectedCarId = e.target.value;
   }
   cars: Array<CarInterface> = [];
 
   carPriceForm = new FormGroup({
     age: new FormControl('', [this.minValueAge]),
-    price: new FormControl('', [this.minValuePrice])
+    price: new FormControl('', [this.minValuePrice]),
+    car: new FormControl('', [this.carSelectRequired])
   });
 
   ngOnInit(): void {
@@ -47,12 +46,14 @@ export class CarComponent implements OnInit {
     return this.carPriceForm.get('price');
   }
 
+  get carSelectValid() {
+    return this.carPriceForm.get('car');
+  }
+
   getCars() {
     this.car.getAll().subscribe({
       next: (res: CarInterface[]) => {
         if (res) {
-          console.log('CARS: ', res);
-          console.log('CARS: ', typeof res);
           this.cars = res;
         }
       },
@@ -73,7 +74,6 @@ export class CarComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res) {
-            console.log(res);
             this.router.navigate(['/cms/offer'], { queryParams: res });
           }
         },
@@ -95,6 +95,14 @@ export class CarComponent implements OnInit {
   minValuePrice(control: AbstractControl): { [key: string]: any } | null {
     if (Number(control.value) < 5000) {
       return { priceMin: { value: control.value } };
+    } else {
+      return null;
+    }
+  }
+
+  carSelectRequired(control: AbstractControl): { [key: string]: any } | null {
+    if (control.value === "null") {
+      return { carSelectRequired: { value: control.value } };
     } else {
       return null;
     }

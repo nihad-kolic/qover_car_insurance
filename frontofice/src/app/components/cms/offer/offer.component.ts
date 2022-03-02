@@ -9,34 +9,51 @@ import { ActivatedRoute } from '@angular/router';
 export class OfferComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
   globalPrice;
+  globalPriceParsed;
   globalPriceMonthly;
+  globalPriceMonthlyParsed;
   universalPrice;
+  universalPriceParsed;
   universalPriceMonthly;
+  universalPriceMonthlyParsed;
   isChecked: boolean = true;
   globalSelected: boolean = true;
   yearlyIncludingTaxesMessage = 'YEARLY INCL. taxes';
   monthlyIncludingTaxesMessage = 'MONTHLY INCL. taxes';
   isCheckedEvent;
   checkValue(e) {
-    console.log(e.target.checked);
     this.isChecked = e.target.checked;
     //this.selectedCarId = e.target.value;
   }
 
-  globalPlanSelectionToggle(setFlag){
+  globalPlanSelectionToggle(setFlag) {
     this.globalSelected = setFlag;
   }
 
   ngOnInit(): void {
     this.globalPrice = Number(
       this.route.snapshot.queryParamMap.get('globalPrice')
-    ).toFixed(2);
+    );
+    this.globalPriceParsed = new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(this.globalPrice);
     this.globalPriceMonthly = this.globalPrice / 12;
-    this.globalPriceMonthly = this.globalPriceMonthly.toFixed(2);
+    this.globalPriceMonthlyParsed = new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(this.globalPriceMonthly);
     this.universalPrice = Number(
       this.route.snapshot.queryParamMap.get('universalPrice')
-    ).toFixed(2);
+    );
+    this.universalPriceParsed = new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(this.universalPrice);
     this.universalPriceMonthly = this.universalPrice / 12;
-    this.universalPriceMonthly = this.universalPriceMonthly.toFixed(2);
+    this.universalPriceMonthlyParsed = new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(this.universalPriceMonthly);
   }
 }

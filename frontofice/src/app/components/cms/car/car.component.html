@@ -1,8 +1,8 @@
 
 
-<div class=" vh-100 w-100 background-image-car">
-   <div class="row justify-content-center h-100">
-   <div class="card my-auto shadow w-50 card-content">
+<div class="w-100 background-image-car d-flex justify-content-center car-div-h">
+   <div class="row justify-content-center">
+   <div class="card my-auto shadow card-content">
      <div class="card-body px-5">
        <form [formGroup]="carPriceForm" (ngSubmit)="onSubmit()">
     <div class="row car-row">
@@ -12,7 +12,7 @@
       <div class="col d-flex justify-content-left">
         <div class="form-group w-50">
           <input type="number" id="age" class="form-control" formControlName="age"
-                 name="age" required minlength="2"/>
+                 name="age"/>
           <div *ngIf="ageValid?.invalid && ageValid?.touched">
           <span class="error-car" *ngIf="ageValid?.errors?.ageMin">Sorry! The driver is too young.</span>
           </div>
@@ -24,12 +24,17 @@
         <p>Car</p>
       </div>
       <div class="col d-flex justify-content-center">
-        <select class="form-control select-button" (change)="update($event)">
+        <div class="form-group w-100">
+        <select id="car" formControlName="car" required class="form-control select-button" (change)="update($event)">
           <option ngValue="null"></option>
           <option *ngFor="let car of cars" [value]="car._id">
             {{car.manufacturer}}
           </option>
         </select>
+        <div *ngIf="carSelectValid?.invalid && carSelectValid?.touched">
+          <span class="error-car">Car field is required!</span>
+        </div>
+        </div>
       </div>
     </div>
     <div class="row car-row">
@@ -50,7 +55,7 @@
          <div class="row car-row">
            <div class="col"></div>
            <div class="col">
-         <input type="submit" class="btn btn-info text-white w-100" value="Get a price">
+         <input type="submit" [disabled]="!carPriceForm.valid" class="btn btn-info text-white w-100" value="Get a price">
            </div>
          </div>
        </form>
