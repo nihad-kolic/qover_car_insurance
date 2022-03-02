@@ -23,8 +23,6 @@ test('Login.', async () => {
       password: 'Ninja'
     })
     .expect(200);
-
-  // expect((response.body.accessToken).toBeDefined());
   token = response.body.accessToken;
 });
 
