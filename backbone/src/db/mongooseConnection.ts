@@ -8,7 +8,7 @@ export const connectToDatabase = () => {
     .connect('mongodb://' + config.db.uri + ':' + config.db.port + '/' + config.db.name)
     .then(() => logger.info('Successfully connected to DB.'))
     .catch((e) => {
-      logger.error(`Failed to connection on MongoDB ${e} , start reconnection`);
+      logger.error(`Failed to connect on MongoDB ${e} , start reconnection`);
       setTimeout(connectToDatabase, 5000);
     });
 

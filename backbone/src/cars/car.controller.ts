@@ -34,7 +34,7 @@ export async function getCarsHandler (req: Request, res: Response) {
     const cars: CarDocument[] = await getCars();
     return res.send(cars);
   } catch (e) {
-    logger.error(`carController::createCarHandler - error while creating car: ${e}`);
+    logger.error(`carController::getCarsHandler - error while creating car: ${e}`);
     return res.status(400).send(e);
   }
 }
@@ -53,7 +53,7 @@ export async function getCarOfferHandler (req: Request, res: Response) {
       forbidNonWhitelisted: true
     });
 
-    // check is the car car bellow car offer limit
+    // check car offer limit
     if (carOfferInputDto.price < config.carOfferMinLimit) {
       return res.status(400).send({ message: 'Sorry! The price of the car is too low' });
     }
@@ -69,7 +69,7 @@ export async function getCarOfferHandler (req: Request, res: Response) {
       const carAgeLimitMessage = car.highRisk ? config.carTooHighRiskMessage : config.carAgeLimitMessage;
       return res.status(400).send({ message: carAgeLimitMessage });
     }
-    // calculate universal car
+    // calculate universal price
     const universalPrice: number = calculateUniversalPrice(car.globalPrice, car.universalPercentage, carOfferInputDto.price);
 
     // return offer

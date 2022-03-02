@@ -3,14 +3,13 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 module.exports.up = function (next) {
-  console.log('Try.');
+  console.log('Migration started...');
   mongoose
     .connect('mongodb://127.0.0.1:27017/car_insurance_db')
     .then(() => {
       console.log('Try user insert.');
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync('Ninja', salt);
-      console.log('Try hash.', hash);
       return mongoose.connection.db.collection('users').insertOne({
         username: 'Qover',
         password: hash,
@@ -19,6 +18,7 @@ module.exports.up = function (next) {
       });
     })
     .then(() => {
+      console.log('User inserted.');
       console.log('Try cars inserts.');
       return mongoose.connection.db.collection('cars').insertMany([
         {
@@ -51,6 +51,7 @@ module.exports.up = function (next) {
       ]);
     })
     .then(() => {
+      console.log('Cars inserted.');
       return mongoose.disconnect();
     })
     .then(() => {

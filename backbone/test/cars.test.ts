@@ -26,7 +26,6 @@ test('Login.', async () => {
 
   // expect((response.body.accessToken).toBeDefined());
   token = response.body.accessToken;
-  console.log('TOKEN FETCHED AFTER LOGIN', token);
 });
 
 test('Get cars from DB.', async () => {
@@ -38,7 +37,6 @@ test('Get cars from DB.', async () => {
   for (let i = 0; i < response.body.length; i++) {
     carsObjects.set(response.body[i].manufacturer, response.body[i]);
   }
-  console.log('Cars fetched from DB', carsObjects);
 });
 
 test('Should compute valid offer for Audi.', async () => {
