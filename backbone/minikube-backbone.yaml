@@ -1,0 +1,53 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: car-insurance-backend
+  namespace: default
+  labels:
+    app: car-insurance-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: car-insurance-backend
+  template:
+    metadata:
+      labels:
+        app: car-insurance-backend
+    spec:
+      containers:
+        - name: car-insurance-backend
+          image: car-insurance-backend:latest
+          imagePullPolicy: Never
+          resources:
+            requests:
+              memory: '64Mi'
+              cpu: '250m'
+            limits:
+              memory: '128Mi'
+              cpu: '500m'
+          env:
+            - name: JWT_SECRET
+              value: 8BB2D34D86572C38D36868E7A614FCF072535D7804E250EFC8B8C951AB36E1EC
+            - name: DB_URI
+              value: 'car-insurance-mongo-service'
+            - name: DB_PORT
+              value: '27017'
+            - name: DB_NAME
+              value: 'car_insurance_db'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: car-insurance-backend
+  name: car-insurance-backend
+spec:
+  type: NodePort
+  ports:
+    - name: car-insurance-backend
+      port: 3000
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: car-insurance-backend

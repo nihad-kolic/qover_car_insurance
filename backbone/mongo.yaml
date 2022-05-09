@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-deployment
+  labels:
+    app: car-insurance-mongo
+spec:
+  replicas: 1
+  serviceName: 'car-insurance-mongo'
+  selector:
+    matchLabels:
+      app: car-insurance-mongo
+  template:
+    metadata:
+      labels:
+        app: car-insurance-mongo
+    spec:
+      volumes:
+        - name: car-insurance-mongo-storage
+          persistentVolumeClaim:
+            claimName: car-insurance-mongo-db-claim
+      containers:
+        - name: car-insurance-mongo
+          image: mongo
+          volumeMounts:
+            - mountPath: '/data/db'
+              name: car-insurance-mongo-storage
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: car-insurance-mongo-db-claim
+spec:
+  #storageClassName: do-block-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: car-insurance-mongo-service
+spec:
+  type: ClusterIP
+  selector:
+    app: car-insurance-mongo
+  ports:
+    - name: car-insurance-mongo-db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

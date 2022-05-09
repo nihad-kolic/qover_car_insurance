@@ -4,6 +4,7 @@
   "description": "Car insurance project",
   "main": "index.js",
   "scripts": {
+    "deploy": "tsc && node build/index.js",
     "start": "tsc && npx migrate up && node build/index.js",
     "debug": "NODE_ENV=development npm run start",
     "test": "jest --clearCache && env-cmd -f ./.env.test jest"

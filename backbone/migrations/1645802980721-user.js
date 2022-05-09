@@ -4,8 +4,10 @@ const bcrypt = require('bcryptjs');
 
 module.exports.up = function (next) {
   console.log('Migration started...');
+  const connectString = `mongodb://${process.env.DB_URI ? process.env.DB_URI : '127.0.0.1'}:${process.env.DB_PORT ? process.env.DB_PORT : 27017}/${process.env.DB_NAME ? process.env.DB_NAME : 'car_insurance_db'}`;
+  console.log('Connection string... ', connectString);
   mongoose
-    .connect('mongodb://' + process.env.DB_URI + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME)
+    .connect(connectString)
     .then(() => {
       console.log('Try user insert.');
       const salt = bcrypt.genSaltSync(10);
@@ -58,7 +60,7 @@ module.exports.up = function (next) {
       next();
     })
     .catch((e) => {
-      console.log(`Failed to connection on MongoDB ${e}`);
+      console.log(`Failed to connect on MongoDB ${e}`);
     });
 };
 
